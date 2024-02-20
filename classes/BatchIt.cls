@@ -9,8 +9,10 @@ public class BatchIt implements Database.Batchable<SObject>, Iterable<SObject>, 
                 BatchIt.now(account_records);
     */
 
-    public static void now(SObject[] records)                     {Database.executeBatch(new BatchIt(records, 'upsert'));}
-    public static void now(SObject[] records, Integer batch_size) {Database.executeBatch(new BatchIt(records, 'upsert'), batch_size);}
+    public static void now(SObject[] records)                                             {Database.executeBatch(new BatchIt(records, 'upsert'));}
+    public static void now(SObject[] records, Boolean all_or_nothing)                     {Database.executeBatch(new BatchIt(records, 'upsert', all_or_nothing));}
+    public static void now(SObject[] records, Boolean all_or_nothing, Integer batch_size) {Database.executeBatch(new BatchIt(records, 'upsert', all_or_nothing), batch_size);}
+    public static void now(SObject[] records, Integer batch_size)                         {Database.executeBatch(new BatchIt(records, 'upsert'), batch_size);}
 
     SObject[] records;
     String    action;
